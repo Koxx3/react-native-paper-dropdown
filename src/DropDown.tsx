@@ -53,6 +53,7 @@ export interface DropDownPropsInterface {
   dropDownItemStyle?: ViewStyle;
   dropDownItemTextStyle?: TextStyle;
   accessibilityLabel?: string;
+  scrollViewRef?: any;
 }
 
 type TextInputPropsWithoutTheme = Without<TextInputProps, "theme">;
@@ -82,6 +83,7 @@ const DropDown = forwardRef<TouchableWithoutFeedback, DropDownPropsInterface>(
       dropDownItemTextStyle,
       dropDownItemSelectedTextStyle,
       accessibilityLabel,
+      scrollViewRef,
     } = props;
     const [displayValue, setDisplayValue] = useState("");
     const [inputLayout, setInputLayout] = useState({
@@ -186,6 +188,7 @@ const DropDown = forwardRef<TouchableWithoutFeedback, DropDownPropsInterface>(
                   maxHeight: dropDownContainerMaxHeight || 200,
                 }),
           }}
+          ref={scrollViewRef}
         >
           {list.map((_item, _index) => (
             <Fragment key={_item.value}>
