@@ -3,7 +3,7 @@ import { Checkbox, Divider, Menu, TextInput, TouchableRipple, useTheme, } from "
 import React, { forwardRef, useEffect, useState, useCallback, Fragment, } from "react";
 const DropDown = forwardRef((props, ref) => {
     const activeTheme = useTheme();
-    const { multiSelect = false, visible, onDismiss, showDropDown, value, setValue, activeColor, mode, label, placeholder, inputProps, list, dropDownContainerMaxHeight, dropDownContainerHeight, theme, dropDownStyle, dropDownItemStyle, dropDownItemSelectedStyle, dropDownItemTextStyle, dropDownItemSelectedTextStyle, accessibilityLabel, scrollViewRef,} = props;
+    const { multiSelect = false, visible, onDismiss, showDropDown, value, setValue, activeColor, mode, label, placeholder, inputProps, list, dropDownContainerMaxHeight, dropDownContainerHeight, theme, dropDownStyle, dropDownItemStyle, dropDownItemSelectedStyle, dropDownItemTextStyle, dropDownItemSelectedTextStyle, accessibilityLabel, scrollViewRef, } = props;
     const [displayValue, setDisplayValue] = useState("");
     const [inputLayout, setInputLayout] = useState({
         height: 0,
@@ -53,15 +53,15 @@ const DropDown = forwardRef((props, ref) => {
         }
     }, [value]);
     return (<Menu visible={visible} onDismiss={onDismiss} theme={theme} anchor={<TouchableRipple ref={ref} onPress={showDropDown} onLayout={onLayout} accessibilityLabel={accessibilityLabel}>
-            <View pointerEvents={"none"}>
-              <TextInput value={displayValue} mode={mode} label={label} placeholder={placeholder} pointerEvents={"none"} theme={theme} right={<TextInput.Icon name={visible ? "menu-up" : "menu-down"}/>} {...inputProps}/>
-            </View>
-          </TouchableRipple>} style={{
-            maxWidth: inputLayout?.width,
-            width: inputLayout?.width,
-            marginTop: inputLayout?.height,
-            ...dropDownStyle,
-        }}>
+        <View pointerEvents={"none"}>
+            <TextInput value={displayValue} mode={mode} label={label} placeholder={placeholder} pointerEvents={"none"} theme={theme} right={<TextInput.Icon name={visible ? "menu-up" : "menu-down"} />} {...inputProps} />
+        </View>
+    </TouchableRipple>} style={{
+        maxWidth: inputLayout?.width,
+        width: inputLayout?.width,
+        marginTop: inputLayout?.height,
+        ...dropDownStyle,
+    }}>
         <ScrollView bounces={false} style={{
             ...(dropDownContainerHeight
                 ? {
@@ -70,41 +70,42 @@ const DropDown = forwardRef((props, ref) => {
                 : {
                     maxHeight: dropDownContainerMaxHeight || 200,
                 }),
-                ref:{scrollViewRef}
-        }}>
-          {list.map((_item, _index) => (<Fragment key={_item.value}>
-              <TouchableRipple style={{
-                flexDirection: "row",
-                alignItems: "center",
-            }} onPress={() => {
-                setActive(_item.value);
-                if (onDismiss) {
-                    onDismiss();
-                }
-            }}>
-                <Fragment>
-                  <Menu.Item titleStyle={{
-                color: isActive(_item.value)
-                    ? activeColor || (theme || activeTheme).colors.primary
-                    : (theme || activeTheme).colors.text,
-                ...(isActive(_item.value)
-                    ? dropDownItemSelectedTextStyle
-                    : dropDownItemTextStyle),
-            }} title={_item.custom || _item.label} style={{
-                flex: 1,
-                maxWidth: inputLayout?.width,
-                ...(isActive(_item.value)
-                    ? dropDownItemSelectedStyle
-                    : dropDownItemStyle),
-            }}/>
-                  {multiSelect && (<Checkbox.Android theme={{
-                    colors: { accent: activeTheme?.colors.primary },
-                }} status={isActive(_item.value) ? "checked" : "unchecked"} onPress={() => setActive(_item.value)}/>)}
-                </Fragment>
-              </TouchableRipple>
-              <Divider />
+        }}
+            ref={scrollViewRef}
+        >
+            {list.map((_item, _index) => (<Fragment key={_item.value}>
+                <TouchableRipple style={{
+                    flexDirection: "row",
+                    alignItems: "center",
+                }} onPress={() => {
+                    setActive(_item.value);
+                    if (onDismiss) {
+                        onDismiss();
+                    }
+                }}>
+                    <Fragment>
+                        <Menu.Item titleStyle={{
+                            color: isActive(_item.value)
+                                ? activeColor || (theme || activeTheme).colors.primary
+                                : (theme || activeTheme).colors.text,
+                            ...(isActive(_item.value)
+                                ? dropDownItemSelectedTextStyle
+                                : dropDownItemTextStyle),
+                        }} title={_item.custom || _item.label} style={{
+                            flex: 1,
+                            maxWidth: inputLayout?.width,
+                            ...(isActive(_item.value)
+                                ? dropDownItemSelectedStyle
+                                : dropDownItemStyle),
+                        }} />
+                        {multiSelect && (<Checkbox.Android theme={{
+                            colors: { accent: activeTheme?.colors.primary },
+                        }} status={isActive(_item.value) ? "checked" : "unchecked"} onPress={() => setActive(_item.value)} />)}
+                    </Fragment>
+                </TouchableRipple>
+                <Divider />
             </Fragment>))}
         </ScrollView>
-      </Menu>);
+    </Menu>);
 });
 export default DropDown;
