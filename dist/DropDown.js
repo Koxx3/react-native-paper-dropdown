@@ -73,6 +73,7 @@ const DropDown = forwardRef((props, ref) => {
                     }),
             }}
             ref={scrollViewRef}
+            scrollToOverflowEnabled={true}
         >
             {list.map((_item, _index) => (<Fragment key={_item.value}>
                 <TouchableRipple style={{
