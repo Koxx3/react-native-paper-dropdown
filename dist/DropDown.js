@@ -62,15 +62,16 @@ const DropDown = forwardRef((props, ref) => {
         marginTop: inputLayout?.height,
         ...dropDownStyle,
     }}>
-        <ScrollView bounces={false} style={{
-            ...(dropDownContainerHeight
-                ? {
-                    height: dropDownContainerHeight,
-                }
-                : {
-                    maxHeight: dropDownContainerMaxHeight || 200,
-                }),
-        }}
+        <ScrollView bounces={false}
+            style={{
+                ...(dropDownContainerHeight
+                    ? {
+                        height: dropDownContainerHeight,
+                    }
+                    : {
+                        maxHeight: dropDownContainerMaxHeight || 200,
+                    }),
+            }}
             ref={scrollViewRef}
         >
             {list.map((_item, _index) => (<Fragment key={_item.value}>
